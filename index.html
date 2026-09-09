@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIKLAUD // OFFICIAL HUB</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
+        body { background-color: #0d0d0d; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
+        .container { width: 100%; max-width: 480px; text-align: center; margin-top: 40px; }
+        .header h1 { font-size: 28px; letter-spacing: 4px; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
+        .header p { color: #888888; font-size: 12px; margin-bottom: 40px; }
+        .section-title { font-size: 14px; color: #00ff66; text-align: left; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; }
+        .grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
+        .card { background: #141414; border: 1px solid #262626; padding: 20px; border-radius: 4px; text-align: left; transition: all 0.3s ease; text-decoration: none; color: white; display: block; }
+        .card:hover { border-color: #00ff66; background: #1a1a1a; }
+        .card.info-card { border: 1px solid #ffcc00; background: #1a1710; }
+        .card.info-card p { color: #dddddd; margin-bottom: 8px; }
+        .card.info-card ul { text-align: left; padding-left: 20px; font-size: 12px; color: #aaaaaa; margin-bottom: 15px; }
+        .card.info-card ul li { margin-bottom: 5px; }
+        .upload-form { margin-top: 15px; border-top: 1px dashed #ffcc00; padding-top: 15px; text-align: left; }
+        .upload-form label { display: block; font-size: 11px; color: #ffcc00; margin-bottom: 8px; text-transform: uppercase; }
+        .upload-form input[type="file"] { display: none; }
+        .custom-file-upload { display: block; background: #2b2515; border: 1px solid #ffcc00; color: #ffcc00; padding: 10px; text-align: center; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .custom-file-upload:hover { background: #ffcc00; color: #0d0d0d; }
+        .upload-btn { width: 100%; background: #00ff66; color: #0d0d0d; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 12px; text-transform: uppercase; display: none; }
+        .card.donate-card { border: 1px dashed #00ff66; background: #111a14; }
+        .card.donate-card:hover { background: #16261c; border-style: solid; }
+        .card h3 { font-size: 16px; margin-bottom: 5px; letter-spacing: 1px; }
+        .card p { color: #888888; font-size: 12px; line-height: 1.4; }
+        .price { color: #00ff66; font-weight: bold; margin-top: 10px; font-size: 14px; }
+        .link-hint { display: inline-block; margin-top: 8px; font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: 1px; }
+        .card:hover .link-hint { color: #00ff66; }
+        .footer { margin-top: auto; color: #444444; font-size: 10px; letter-spacing: 1px; padding-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>KIKLAUD</h1>
+            <p>Счастье любит тишину. Код варится здесь. 🤫</p>
+        </div>
+
+        <div class="section-title">// АНОНИМНАЯ ДОСТАВКА</div>
+        <div class="grid">
+            <div class="card info-card">
+                <h3 style="color: #ffcc00; margin-bottom: 10px;">КАК ОФОРМИТЬ ПОДАРКИ НА ПВЗ 📦</h3>
+                <p>Пацаны, полная анонимность. Никаких имён и ЛС. Работаем строго по автономной схеме:</p>
+                <ul>
+                    <li>Кликайте на любой товар ниже и переходите на Ozon.</li>
+                    <li>При оформлении выбирайте ПВЗ: <b style="color: #ffffff;">г. Электросталь, проспект Ленина, д. 1</b>.</li>
+                    <li>Оплачивайте заказ со своего аккаунта.</li>
+                    <li>Как только товар прибудет, сделайте скриншот штрихкода (QR-кода).</li>
+                    <li>Загружайте скриншот сюда. Он улетит в админку, а ваш TG останется скрыт.</li>
+                </ul>
+
+                <div class="upload-form">
+                    <label>📥 Загрузить скриншот штрихкода Ozon:</label>
+                    <label for="file-upload" class="custom-file-upload" id="upload-label">Выбрать скриншот ➔</label>
+                    <input id="file-upload" type="file" accept="image/*" onchange="fileSelected()"/>
+                    <button class="upload-btn" id="submit-btn" onclick="sendScreenshot()">Отправить анонимно ➔</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">// ПОДДЕРЖАТЬ ПРОЕКТ НАПРЯМУЮ</div>
+        <div class="grid">
+            <a href="https://ozon.ru" class="card donate-card" target="_blank">
+                <h3>ПОДАРИТЬ ДЕНЬГИ // СБП 💸</h3>
+                <p>Прямой перевод на Озон Банк без комиссии через СБП. На личные девайсы и ночной кодинг.</p>
+                <div class="price">Кликнуть для перевода ➔</div>
+            </a>
+        </div>
+
+        <div class="section-title">// АВТОНОМНЫЕ СЕРВИСЫ</div>
+        <div class="grid">
+            <a href="https://t.me" class="card" target="_blank">
+                <h3>@Playdonatbot 📱</h3>
+                <p>Автономный шлюз пополнения Steam (СНГ) и доната в игры. Работает 24/7 в облаке.</p>
+                <span class="link-hint">Открыть бота ➔</span>
+            </a>
+            <a href="#" class="card" onclick="alert('Раздел заблокирован до октября! Сначала переезд. 🔐')">
+                <h3>KIKLAUD VPN 🌐</h3>
+                <p>Приватные зеркала VPN-ботов для безопасного обхода любых блокировок в сети.</p>
+                <span class="link-hint">В разработке...</span>
+            </a>
+            <a href="#" class="card" onclick="alert('Запуск в декабре! ⏳')">
+                <h3>TG STARS & DONAT ⭐</h3>
+                <p>Покупка Звёзд Telegram по лучшему курсу для геймеров и админов.</p>
+                <span class="link-hint">В разработке...</span>
+            </a>
+        </div>
+
+        <div class="section-title">// БЮДЖЕТНЫЙ ДЕКОР В КВАРТИРУ</div>
+        <div class="grid">
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Интерьерный постер «GTA 6» (А3) 🖼️</h3>
+                <p>Большой плотный плакат на стену в комнату. Вайб Вайс-Сити для твоего нового штаба.</p>
+                <div class="price">~ 936 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Копилка из дерева «Системный блок» 🖥️</h3>
+                <p>Стильный сувенир на стол геймеру для накоплений на будущие железки.</p>
+                <div class="price">~ 533 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Постер на стену «Неоновый геймпад» 🕹️</h3>
+                <p>Яркий геймерский плакат в рамке для создания атмосферы киберспортивного бункера.</p>
+                <div class="price">~ 407 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+        </div>
+
+        <div class="section-title">// КИБЕР-ПРОКАЧКА (ЖЕСТКИЙ СЕТАП)</div>
+        <div class="grid">
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Напольная LED RGB лампа-палка 💡</h3>
+                <p>Светильник с поддержкой звука. Создает топовый неоновый полумрак для съемок кружочков.</p>
+                <div class="price">~ 1 695 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Про-геймпад Sony DualSense Edge 🎮</h3>
+                <p>Профессиональный джойстик с лепестками под будущие стримы по GTA Online.</p>
+                <div class="price">~ 19 533 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Внешний SSD Samsung T7 (1 TB) 📦</h3>
+                <p>Сверхбыстрый портативный накопитель для хранения баз данных твоего бота и логов.</p>
+                <div class="price">~ 22 951 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+        </div>
+
+        <div class="footer">© 2026 KIKLAUD. ALL RIGHTS RESERVED. POWERED BY AI & CLEAN CODE.</div>
+    </div>
+
+    <script>
+        function fileSelected() {
+            const fileInput = document.getElementById('file-upload');
+            const label = document.getElementById('upload-label');
+            const submitBtn = document.getElementById('submit-btn');
+            if (fileInput.files && fileInput.files.length > 0) {
+                label.innerText = "ФАЙЛ УСПЕШНО ВЫБРАН ⚡";
+                label.style.borderColor = "#00ff66";
+                label.style.color = "#00ff66";
+                submitBtn.style.display = "block"; 
+            }
+        }
+
+        async function sendScreenshot() {
+            const fileInput = document.getElementById('file-upload');
+            const submitBtn = document.getElementById('submit-btn');
+            const label = document.getElementById('upload-label');
+            if (fileInput.files.length === 0) return;
+
+            const BOT_TOKEN = '8983857961:AAGn8pevxfz5dh-DlUzEc2ITBdmpHN3MubM'; 
+            const YOUR_CHAT_ID = '6309236092';       
+
+            submitBtn.innerText = "ОТПРАВКА... ⏳";
