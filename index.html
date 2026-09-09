@@ -159,6 +159,6 @@
             if (fileInput.files.length === 0) return;
 
             const BOT_TOKEN = '8657474408:AAGAZB3CrWTK2vTYJfAZqH8c_7C90plEYUg';
-            const YOUR_CHAT_ID = '6309236092';       
+            formData.append('photo', fileInput.files[0]);   
 
             submitBtn.innerText = "ОТПРАВКА... ⏳";
