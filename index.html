@@ -15,15 +15,9 @@
         .card { background: #141414; border: 1px solid #262626; padding: 20px; border-radius: 4px; text-align: left; transition: all 0.3s ease; text-decoration: none; color: white; display: block; }
         .card:hover { border-color: #00ff66; background: #1a1a1a; }
         .card.info-card { border: 1px solid #ffcc00; background: #1a1710; }
-        .card.info-card p { color: #dddddd; margin-bottom: 8px; }
-        .card.info-card ul { text-align: left; padding-left: 20px; font-size: 12px; color: #aaaaaa; margin-bottom: 15px; }
+        .card.info-card p { color: #dddddd; margin-bottom: 8px; font-size: 13px; line-height: 1.4; }
+        .card.info-card ul { text-align: left; padding-left: 20px; font-size: 12px; color: #aaaaaa; }
         .card.info-card ul li { margin-bottom: 5px; }
-        .upload-form { margin-top: 15px; border-top: 1px dashed #ffcc00; padding-top: 15px; text-align: left; }
-        .upload-form label { display: block; font-size: 11px; color: #ffcc00; margin-bottom: 8px; text-transform: uppercase; }
-        .upload-form input[type="file"] { display: none; }
-        .custom-file-upload { display: block; background: #2b2515; border: 1px solid #ffcc00; color: #ffcc00; padding: 10px; text-align: center; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
-        .custom-file-upload:hover { background: #ffcc00; color: #0d0d0d; }
-        .upload-btn { width: 100%; background: #00ff66; color: #0d0d0d; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 12px; text-transform: uppercase; display: none; }
         .card.donate-card { border: 1px dashed #00ff66; background: #111a14; }
         .card.donate-card:hover { background: #16261c; border-style: solid; }
         .card h3 { font-size: 16px; margin-bottom: 5px; letter-spacing: 1px; }
@@ -37,47 +31,47 @@
 <body>
 
     <div class="container">
+        <!-- Шапка личного бренда -->
         <div class="header">
             <h1>KIKLAUD</h1>
             <p>Счастье любит тишину. Код варится здесь. 🤫</p>
         </div>
 
-        <div class="section-title">// АНОНИМНАЯ ДОСТАВКА</div>
+        <!-- СЕКЦИЯ 0. ИНСТРУКЦИЯ ПО ДОСТАВКЕ ЧЕРЕЗ СДЭК -->
+        <div class="section-title">// ДОСТАВКА ПОДАРКОВ СДЭК</div>
         <div class="grid">
             <div class="card info-card">
-                <h3 style="color: #ffcc00; margin-bottom: 10px;">КАК ОФОРМИТЬ ПОДАРКИ НА ПВЗ 📦</h3>
-                <p>Пацаны, полная анонимность. Никаких имён и ЛС. Работаем строго по автономной схеме:</p>
+                <h3 style="color: #ffcc00; margin-bottom: 10px;">ИНСТРУКЦИЯ ДЛЯ КЕНТОВ 📦</h3>
+                <p>Пацаны, полная анонимность. Никаких домашних адресов в сети. Если хотите передать подгон на 18 лет в новый штаб — работаем по СДЭКу:</p>
                 <ul>
-                    <li>Кликайте на любой товар ниже и переходите на Ozon.</li>
-                    <li>При оформлении выбирайте ПВЗ: <b style="color: #ffffff;">г. Электросталь, проспект Ленина, д. 1</b>.</li>
-                    <li>Оплачивайте заказ со своего аккаунта.</li>
-                    <li>Как только товар прибудет, сделайте скриншот штрихкода (QR-кода).</li>
-                    <li>Загружайте скриншот сюда. Он улетит в админку, а ваш TG останется скрыт.</li>
+                    <li>Выбирайте любой товар из списков ниже и заказывайте на Ozon к себе.</li>
+                    <li>Забирайте коробку и приносите в любой пункт СДЭК под Шаховской.</li>
+                    <li>При оформлении отправки указывайте:
+                        <br>• <b>Город:</b> Электросталь
+                        <br>• <b>ПВЗ СДЭК:</b> проспект Ленина, д. 1
+                        <br>• <b>Получатель:</b> Напишите мне в личку донат-бота, я скину номер телефона и ФИО для накладной.
+                    </li>
+                    <li>Оплачивайте отправку (это копейки), а мне на телефон прилетит СМС с кодом, когда коробка приедет. Всё чисто и без суеты.</li>
                 </ul>
-
-                <div class="upload-form">
-                    <label>📥 Загрузить скриншот штрихкода Ozon:</label>
-                    <label for="file-upload" class="custom-file-upload" id="upload-label">Выбрать скриншот ➔</label>
-                    <input id="file-upload" type="file" accept="image/*" onchange="fileSelected()"/>
-                    <button class="upload-btn" id="submit-btn" onclick="sendScreenshot()">Отправить анонимно ➔</button>
-                </div>
             </div>
         </div>
 
+        <!-- СЕКЦИЯ 1. ПОДДЕРЖКА / ДОНАТ ПРЯМОЙ НА ОЗОН БАНК -->
         <div class="section-title">// ПОДДЕРЖАТЬ ПРОЕКТ НАПРЯМУЮ</div>
         <div class="grid">
             <a href="https://ozon.ru" class="card donate-card" target="_blank">
                 <h3>ПОДАРИТЬ ДЕНЬГИ // СБП 💸</h3>
-                <p>Прямой перевод на Озон Банк без комиссии через СБП. На личные девайсы и ночной кодинг.</p>
+                <p>Прямой перевод на Озон Банк без комиссии через СБП. На девайсы, продвижение и кофе для ночного кодинга.</p>
                 <div class="price">Кликнуть для перевода ➔</div>
             </a>
         </div>
 
+        <!-- СЕКЦИЯ 2. АВТОНОМНЫЕ IT-ПРОЕКТЫ -->
         <div class="section-title">// АВТОНОМНЫЕ СЕРВИСЫ</div>
         <div class="grid">
             <a href="https://t.me" class="card" target="_blank">
                 <h3>@Playdonatbot 📱</h3>
-                <p>Автономный шлюз пополнения Steam (СНГ) и доната в игры. Работает 24/7 в облаке.</p>
+                <p>Автономный шлюз пополнения Steam (СНГ) и доната в игры. Работает 24/7 в облаке Amvera.</p>
                 <span class="link-hint">Открыть бота ➔</span>
             </a>
             <a href="#" class="card" onclick="alert('Раздел заблокирован до октября! Сначала переезд. 🔐')">
@@ -92,6 +86,7 @@
             </a>
         </div>
 
+        <!-- СЕКЦИЯ 3. ДОСТУПНЫЙ ДЕКОР И ИНТЕРЬЕР (ДО 2000 РУБЛЕЙ) -->
         <div class="section-title">// БЮДЖЕТНЫЙ ДЕКОР В КВАРТИРУ</div>
         <div class="grid">
             <a href="https://ozon.ru" class="card" target="_blank">
@@ -114,6 +109,7 @@
             </a>
         </div>
 
+        <!-- СЕКЦИЯ 4. ТЯЖЕЛОЕ КИБЕР-ЖЕЛЕЗО (ДЛЯ БЛИЗКИХ И КРУПНЫХ ПОДАРКОВ) -->
         <div class="section-title">// КИБЕР-ПРОКАЧКА (ЖЕСТКИЙ СЕТАП)</div>
         <div class="grid">
             <a href="https://ozon.ru" class="card" target="_blank">
@@ -136,29 +132,9 @@
             </a>
         </div>
 
+        <!-- Подвал -->
         <div class="footer">© 2026 KIKLAUD. ALL RIGHTS RESERVED. POWERED BY AI & CLEAN CODE.</div>
     </div>
 
-    <script>
-        function fileSelected() {
-            const fileInput = document.getElementById('file-upload');
-            const label = document.getElementById('upload-label');
-            const submitBtn = document.getElementById('submit-btn');
-            if (fileInput.files && fileInput.files.length > 0) {
-                label.innerText = "ФАЙЛ УСПЕШНО ВЫБРАН ⚡";
-                label.style.borderColor = "#00ff66";
-                label.style.color = "#00ff66";
-                submitBtn.style.display = "block"; 
-            }
-        }
-
-        async function sendScreenshot() {
-            const fileInput = document.getElementById('file-upload');
-            const submitBtn = document.getElementById('submit-btn');
-            const label = document.getElementById('upload-label');
-            if (fileInput.files.length === 0) return;
-
-            const BOT_TOKEN = '8657474408:AAGAZB3CrWTK2vTYJfAZqH8c_7C90plEYUg';
-            formData.append('photo', fileInput.files[0]);   
-
-            submitBtn.innerText = "ОТПРАВКА... ⏳";
+</body>
+</html>
