@@ -1,142 +1,98 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIKLAUD // OFFICIAL HUB</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
-        body { background-color: #0d0d0d; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
-        .container { width: 100%; max-width: 480px; text-align: center; margin-top: 40px; }
-        .header h1 { font-size: 28px; letter-spacing: 4px; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
-        .header p { color: #888888; font-size: 12px; margin-bottom: 40px; }
-        .section-title { font-size: 14px; color: #00ff66; text-align: left; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; }
-        .grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
-        .card { background: #141414; border: 1px solid #262626; padding: 20px; border-radius: 4px; text-align: left; transition: all 0.3s ease; text-decoration: none; color: white; display: block; }
-        .card:hover { border-color: #00ff66; background: #1a1a1a; }
-        .card.info-card { border: 1px solid #ffcc00; background: #1a1710; }
-        .card.info-card p { color: #dddddd; margin-bottom: 8px; font-size: 13px; line-height: 1.4; }
-        .card.info-card ul { text-align: left; padding-left: 20px; font-size: 12px; color: #aaaaaa; }
-        .card.info-card ul li { margin-bottom: 5px; }
-        .card.donate-card { border: 1px dashed #00ff66; background: #111a14; }
-        .card.donate-card:hover { background: #16261c; border-style: solid; }
-        .card h3 { font-size: 16px; margin-bottom: 5px; letter-spacing: 1px; }
-        .card p { color: #888888; font-size: 12px; line-height: 1.4; }
-        .price { color: #00ff66; font-weight: bold; margin-top: 10px; font-size: 14px; }
-        .link-hint { display: inline-block; margin-top: 8px; font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: 1px; }
-        .card:hover .link-hint { color: #00ff66; }
-        .footer { margin-top: auto; color: #444444; font-size: 10px; letter-spacing: 1px; padding-bottom: 20px; }
-        a.inline-link { color: #ffcc00; text-decoration: underline; }
-        a.inline-link:hover { color: #00ff66; }
-    </style>
-</head>
-<body>
+KIKLAUD // OFFICIAL HUB
 
-    <div class="container">
-        <!-- Шапка официального бренда -->
-        <div class="header">
-            <h1>KIKLAUD</h1>
-            <p>Счастье любит тишину. Код варится здесь. 🤫</p>
-        </div>
+# KIKLAUD
 
-        <!-- СЕКЦИЯ 0. ОФИЦИАЛЬНАЯ ИНСТРУКЦИЯ ПО ДОСТАВКЕ -->
-        <div class="section-title">// ТЕХНИЧЕСКАЯ ИНСТРУКЦИЯ СДЭК</div>
-        <div class="grid">
-            <div class="card info-card">
-                <h3 style="color: #ffcc00; margin-bottom: 10px;">ПРАВИЛА ОФОРМЛЕНИЯ ДОСТАВКИ 📦</h3>
-                <p>В целях обеспечения конфиденциальности личных данных, приёмка физических отправлений и подарков к 18-летию проекта осуществляется строго через логистическую сеть СДЭК:</p>
-                <ul>
-                    <li>Выберите интересующую вас позицию в каталогах ниже и оформите заказ на Ozon [0.1.12 ].</li>
-                    <li>После получения отправления передайте его в любой пункт СДЭК [ 1 ].</li>
-                    <li>В накладной доставки необходимо указать следующие реквизиты:
-                        <br>• <b>Город назначения:</b> Электросталь [ 20 ]
-                        <br>• <b>ПВЗ СДЭК:</b> проспект Ленина, д. 1 [0.1.12 ,  20 ]
-                        <br>• <b>Данные получателя:</b> Для получения ФИО и номера телефона обратитесь в официальный аккаунт поддержки: <a href="https://t.me" class="inline-link" target="_blank">@managerkiklaud</a> [ 1 ].
-                    </li>
-                    <li>Оплатите отправку. Прибытие груза в ПВЗ будет зафиксировано автоматически по СМС-уведомлению [ 20 ].</li>
-                </ul>
-            </div>
-        </div>
+Счастье любит тишину. Код варится здесь. 🤫
 
-        <!-- СЕКЦИЯ 1. ПОДДЕРЖКА / ДОНАТ ПРЯМОЙ НА ОЗОН БАНК -->
-        <div class="section-title">// ПРЯМАЯ ФИНАНСОВАЯ ПОДДЕРЖКА</div>
-        <div class="grid">
-            <a href="https://ozon.ru" class="card donate-card" target="_blank">
-                <h3>ПОДДЕРЖАТЬ ПРОЕКТ // СБП 💸</h3>
-                <p>Прямой моментальный перевод на Озон Банк без комиссии через Систему Быстрых Платежей. На личные девайсы, закупку оборудования и хостинг.</p>
-                <div class="price">Перейти к оплате СБП ➔</div>
-            </a>
-        </div>
+// ТЕХНИЧЕСКАЯ ИНСТРУКЦИЯ СДЭК
 
-        <!-- СЕКЦИЯ 2. АВТОНОМНЫЕ IT-ПРОЕКТЫ -->
-        <div class="section-title">// ЦИФРОВЫЕ СЕРВИСЫ И ЭКОСИСТЕМА</div>
-        <div class="grid">
-            <!-- ИСПРАВЛЕННАЯ ССЫЛКА НА ТВОЕГО БОТА -->
-            <a href="https://t.me" class="card" target="_blank">
-                <h3>@playdonate_bot 📱</h3>
-                <p>Автономный шлюз пополнения баланса Steam (СНГ) и прямой покупки игрового доната. Доступен в сети 24/7.</p>
-                <span class="link-hint">Запустить сервис ➔</span>
-            </a>
-            <a href="#" class="card" onclick="alert('Технический раздел заблокирован до октября! Сначала переезд. 🔐')">
-                <h3>KIKLAUD VPN 🌐</h3>
-                <p>Высокоскоростные приватные зеркала VPN-сетей для обеспечения безопасности и шифрования трафика.</p>
-                <span class="link-hint">Статус: В разработке...</span>
-            </a>
-            <a href="#" class="card" onclick="alert('Официальный релиз запланирован на декабрь! ⏳')">
-                <h3>TG STARS & DONAT ⭐</h3>
-                <p>Официальный автоматизированный шлюз для моментальной покупки Звёзд Telegram.</p>
-                <span class="link-hint">Статус: В разработке...</span>
-            </a>
-        </div>
+### ПРАВИЛА ОФОРМЛЕНИЯ ДОСТАВКИ 📦
 
-        <!-- СЕКЦИЯ 3. ИНТЕРЬЕР (ДО 2000 РУБЛЕЙ) -->
-        <div class="section-title">// КАТАЛОГ ДЕКОРА (БЮДЖЕТНЫЙ СЕГМЕНТ)</div>
-        <div class="grid">
-            <a href="https://ozon.ru" class="card" target="_blank">
-                <h3>Интерьерный постер «GTA 6» (Формат А3) 🖼️</h3>
-                <p>Плотный интерьерный плакат. Тематическое визуальное оформление для стен нового технологического штаба.</p>
-                <div class="price">~ 936 ₽</div>
-                <span class="link-hint">Открыть на Ozon ➔</span>
-            </a>
-            <a href="https://ozon.ru" class="card" target="_blank">
-                <h3>Копилка из дерева «Системный блок» 🖥️</h3>
-                <p>Тематический настольный сувенир ручной работы для хранения сбережений на комплектующие.</p>
-                <div class="price">~ 533 ₽</div>
-                <span class="link-hint">Открыть на Ozon ➔</span>
-            </a>
-            <a href="https://ozon.ru" class="card" target="_blank">
-                <h3>Постер на стену «Неоновый геймпад» 🕹️</h3>
-                <p>Профессиональный геймерский принт в защитной рамке для оформления киберспортивной зоны.</p>
-                <div class="price">~ 407 ₽</div>
-                <span class="link-hint">Открыть на Ozon ➔</span>
-            </a>
-        </div>
+В целях обеспечения конфиденциальности личных данных, приёмка физических отправлений и подарков к 18-летию проекта осуществляется строго через логистическую сеть СДЭК:
 
-        <!-- СЕКЦИЯ 4. ТЯЖЕЛОЕ КИБЕР-ЖЕЛЕЗО -->
-        <div class="section-title">// КИБЕРСПОРТИВНОЕ ОБОРУДОВАНИЕ</div>
-        <div class="grid">
-            <a href="https://ozon.ru" class="card" target="_blank">
-                <h3>Напольный светодиодный светильник RGB LED 💡</h3>
-                <p>Интеллектуальная лампа-палка с поддержкой звуковой синхронизации для создания студийного неонового освещения.</p>
-                <div class="price">~ 1 695 ₽</div>
-                <span class="link-hint">Открыть на Ozon ➔</span>
-            </a>
-            <a href="https://ozon.ru" class="card" target="_blank">
-                <h3>Профессиональный геймпад Sony DualSense Edge 🎮</h3>
-                <p>Киберспортивный контроллер премиум-сегмента с поддержкой макросов и лепестков под трансляции GTA Online.</p>
-                <div class="price">~ 19 533 ₽</div>
-                <span class="link-hint">Открыть на Ozon ➔</span>
-            </a>
-            <a href="https://ozon.ru" class="card" target="_blank">
-                <h3>Внешний твердотельный накопитель Samsung T7 (1 TB) 📦</h3>
-                <p>Высокоскоростной защищённый SSD-диск для хранения резервных копий баз данных экосистемы и медиафайлов.</p>
-                <div class="price">~ 22 951 ₽</div>
-                <span class="link-hint">Открыть на Ozon ➔</span>
-            </a>
-        </div>
+- Выберите интересующую вас позицию в каталогах ниже и оформите заказ на Ozon.
+- После получения отправления передайте его в любой пункт СДЭК.
+- В накладной доставки необходимо указать следующие реквизиты: • **Город назначения:** Электросталь • **ПВЗ СДЭК:** проспект Ленина, д. 1 • **Данные получателя:** Для получения ФИО и номера телефона обратитесь в официальный аккаунт поддержки: @managerkiklaud.
+- Оплатите отправку. Прибытие груза в ПВЗ будет зафиксировано автоматически по СМС-уведомлению.
 
-        <div class="footer">© 2026 KIKLAUD. ALL RIGHTS RESERVED. POWERED BY AI & CLEAN CODE.</div>
-    </div>
+// ПРЯМАЯ ФИНАНСОВАЯ ПОДДЕРЖКА
 
-</body>
-</html>
+### ПОДДЕРЖАТЬ ПРОЕКТ // СБП 💸
+
+Прямой моментальный перевод на Озон Банк без комиссии через Систему Быстрых Платежей. На личные девайсы, закупку оборудования и хостинг.
+
+[Перейти к оплате СБП ➔](https://finance.ozon.ru/apps/sbp/ozonbankpay/019a12e1-82a0-7b94-9613-a6daed07845b)
+
+// ЦИФРОВЫЕ СЕРВИСЫ И ЭКОСИСТЕМА
+
+### @playdonate_bot 📱
+
+Автономный шлюз пополнения баланса Steam (СНГ) и прямой покупки игрового доната. Доступен в сети 24/7.
+
+Запустить сервис ➔
+
+### KIKLAUD VPN 🌐
+
+Высокоскоростные приватные зеркала VPN-сетей для обеспечения безопасности и шифрования трафика.
+
+Статус: В разработке...
+
+### TG STARS & DONAT ⭐
+
+Официальный автоматизированный шлюз для моментальной покупки Звёзд Telegram.
+
+Статус: В разработке...
+
+// КАТАЛОГ ДЕКОРА (БЮДЖЕТНЫЙ СЕГМЕНТ)
+
+### Интерьерный постер «GTA 6» (Формат А3) 🖼
+
+Плотный интерьерный плакат. Тематическое визуальное оформление для стен нового технологического штаба.
+
+~ 936 ₽
+
+Открыть на Ozon ➔
+
+### Копилка из дерева «Системный блок» 🖥
+
+Тематический настольный сувенир ручной работы для хранения сбережений на комплектующие.
+
+~ 533 ₽
+
+Открыть на Ozon ➔
+
+### Постер на стену «Неоновый геймпад» 🕹
+
+Профессиональный геймерский принт в защитной рамке для оформления киберспортивной зоны.
+
+~ 407 ₽
+
+Открыть на Ozon ➔
+
+// КИБЕРСПОРТИВНОЕ ОБОРУДОВАНИЕ
+
+### Напольный светодиодный светильник RGB LED 💡
+
+Интеллектуальная лампа-палка с поддержкой звуковой синхронизации для создания студийного неонового освещения.
+
+~ 1 695 ₽
+
+Открыть на Ozon ➔
+
+### Профессиональный геймпад Sony DualSense Edge 🎮
+
+Киберспортивный контроллер премиум-сегмента с поддержкой макросов и лепестков под трансляции GTA Online.
+
+~ 19 533 ₽
+
+Открыть на Ozon ➔
+
+### Внешний твердотельный накопитель Samsung T7 (1 TB) 📦
+
+Высокоскоростной защищённый SSD-диск для хранения резервных копий баз данных экосистемы и медиафайлов.
+
+~ 22 951 ₽
+
+Открыть на Ozon ➔
+
+© 2026 KIKLAUD. ALL RIGHTS RESERVED. POWERED BY AI & CLEAN CODE.
