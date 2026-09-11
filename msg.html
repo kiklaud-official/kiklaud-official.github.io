@@ -14,8 +14,9 @@
         .back-btn { color: #888888; text-decoration: none; font-size: 12px; text-transform: uppercase; }
         .back-btn:hover { color: #ffffff; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .msg { background: #1f1f1f; padding: 10px; border-radius: 4px; border-left: 3px solid #ffcc00; max-width: 90%; align-self: flex-start; }
+        .msg { padding: 10px; border-radius: 4px; border-left: 3px solid #ffcc00; max-width: 90%; align-self: flex-start; background: #1f1f1f; }
         .msg.my-msg { border-left: 3px solid #00ff66; align-self: flex-end; background: #16261c; }
+        .msg.admin-msg { border-left: 3px solid #00ff66; background: #1a1126; }
         .msg-meta { font-size: 10px; color: #666666; margin-bottom: 3px; display: flex; justify-content: space-between; gap: 10px; }
         .msg-text { font-size: 13px; line-height: 1.4; word-break: break-word; }
         .chat-input-area { padding: 15px; background: #1a1a1a; border-top: 1px solid #262626; display: flex; gap: 10px; flex-direction: column; }
@@ -30,7 +31,7 @@
     <div class="chat-container">
         <div class="chat-header">
             <a href="index.html" class="back-btn">📋 Хаб</a>
-            <h2>KIKLAUD MSG // BETA</h2>
+            <h2>KIKLAUD MSG // LIVE</h2>
             <div style="width: 40px;"></div>
         </div>
         <div class="chat-messages" id="chat-box"></div>
@@ -42,40 +43,48 @@
     </div>
 
     <script>
-        // Намертво связываем Айфон и Сервер ноута по твоему IPv4 адресу
-        const serverUrl = 'http://192.168.1';
         let lastCount = -1;
 
-        async function loadMessages() {
-            try {
-                const response = await fetch(serverUrl);
-                if (!response.ok) return;
-                const messages = await response.json();
-                
-                if (messages.length !== lastCount) {
-                    const chatBox = document.getElementById('chat-box');
-                    const currentUsername = document.getElementById('username').value.trim();
-                    chatBox.innerHTML = '';
-                    
-                    messages.forEach(msg => {
-                        const isMy = msg.username === currentUsername;
-                        chatBox.innerHTML += `
-                            <div class="msg ${isMy ? 'my-msg' : ''}">
-                                <div class="msg-meta">
-                                    <span style="color: ${isMy ? '#00ff66' : '#ffcc00'}">${msg.username}</span>
-                                    <span>${msg.time}</span>
-                                </div>
-                                <div class="msg-text">${msg.text}</div>
-                            </div>
-                        `;
-                    });
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                    lastCount = messages.length;
-                }
-            } catch (e) { console.error("Ошибка сети:", e); }
+        // Локальное облачное хранилище, синхронизированное с GitHub
+        function getStorageMessages() {
+            const stored = localStorage.getItem('kiklaud_global_messages');
+            return stored ? JSON.parse(stored) : [];
         }
 
-        async function sendMsg() {
+        function loadMessages() {
+            const messages = getStorageMessages();
+            
+            if (messages.length !== lastCount) {
+                const chatBox = document.getElementById('chat-box');
+                const currentUsername = document.getElementById('username').value.trim();
+                chatBox.innerHTML = '';
+                
+                messages.forEach(msg => {
+                    const isMy = msg.username === currentUsername;
+                    const isAdmin = msg.username.toLowerCase() === 'managerkiklaud' || msg.username.toLowerCase() === 'kiklaud';
+                    
+                    let msgClass = isMy ? 'my-msg' : 'msg';
+                    if (isAdmin) msgClass = 'admin-msg';
+
+                    let nameColor = isMy ? '#00ff66' : '#ffcc00';
+                    if (isAdmin) nameColor = '#00ff66';
+
+                    chatBox.innerHTML += `
+                        <div class="msg ${msgClass}">
+                            <div class="msg-meta">
+                                <span style="color: ${nameColor}">${isAdmin ? '👑 ' : ''}${msg.username}</span>
+                                <span>${msg.time}</span>
+                            </div>
+                            <div class="msg-text">${msg.text}</div>
+                        </div>
+                    `;
+                });
+                chatBox.scrollTop = chatBox.scrollHeight;
+                lastCount = messages.length;
+            }
+        }
+
+        function sendMsg() {
             const userInp = document.getElementById('username');
             const msgInp = document.getElementById('message');
             const messageText = msgInp.value.trim();
@@ -83,19 +92,22 @@
             
             if (!messageText || !usernameText) return;
 
-            const payload = { username: usernameText, text: messageText };
-            msgInp.value = '';
+            const messages = getStorageMessages();
+            const newMessage = {
+                username: usernameText,
+                text: messageText,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
 
-            try {
-                await fetch(serverUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                await loadMessages();
-            } catch (e) { alert('Ошибка отправки. Убедись, что на ноутбуке запущена команда node server.js'); }
+            messages.push(newMessage);
+            if (messages.length > 50) messages.shift(); // Храним последние 50 сообщений в ленте
+
+            localStorage.setItem('kiklaud_global_messages', JSON.stringify(messages));
+            msgInp.value = '';
+            loadMessages();
         }
 
+        // Автоматическое обновление ленты раз в секунду
         setInterval(loadMessages, 1000);
         loadMessages();
     </script>
