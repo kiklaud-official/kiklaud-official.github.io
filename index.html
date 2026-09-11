@@ -3,99 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="manifest.json">
-    <title>KIKLAUD // MESSENGER</title>
+    <title>KIKLAUD // OFFICIAL HUB</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
-        body { background-color: #0d0d0d; color: #ffffff; display: flex; flex-direction: column; align-items: center; height: 100vh; padding: 10px; }
-        .chat-container { width: 100%; max-width: 480px; height: 100%; display: flex; flex-direction: column; border: 1px solid #262626; background: #141414; border-radius: 4px; overflow: hidden; }
-        .chat-header { background: #1a1a1a; padding: 15px; border-bottom: 1px solid #262626; text-align: center; }
-        .chat-header h2 { font-size: 18px; letter-spacing: 2px; color: #00ff66; text-transform: uppercase; }
-        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .msg { background: #1f1f1f; padding: 10px; border-radius: 4px; border-left: 3px solid #ffcc00; max-width: 90%; align-self: flex-start; }
-        .msg.my-msg { border-left: 3px solid #00ff66; align-self: flex-end; background: #16261c; }
-        .msg-meta { font-size: 10px; color: #666666; margin-bottom: 3px; display: flex; justify-content: space-between; gap: 10px; }
-        .msg-text { font-size: 13px; line-height: 1.4; word-break: break-word; }
-        .chat-input-area { padding: 15px; background: #1a1a1a; border-top: 1px solid #262626; display: flex; gap: 10px; flex-direction: column; }
-        .username-input, .message-input { background: #0d0d0d; border: 1px solid #262626; color: white; padding: 10px; font-size: 13px; border-radius: 4px; width: 100%; outline: none; }
-        .username-input:focus, .message-input:focus { border-color: #00ff66; }
-        .send-btn { background: #00ff66; color: #0d0d0d; border: none; padding: 12px; font-weight: bold; font-size: 13px; border-radius: 4px; cursor: pointer; text-transform: uppercase; width: 100%; }
-        .send-btn:hover { background: #00cc55; }
+        body { background-color: #0d0d0d; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
+        .container { width: 100%; max-width: 480px; text-align: center; margin-top: 40px; }
+        .header h1 { font-size: 28px; letter-spacing: 4px; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
+        .header p { color: #888888; font-size: 12px; margin-bottom: 40px; }
+        .section-title { font-size: 14px; color: #00ff66; text-align: left; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; }
+        .grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
+        .card { background: #141414; border: 1px solid #262626; padding: 20px; border-radius: 4px; text-align: left; transition: all 0.3s ease; text-decoration: none; color: white; display: block; }
+        .card:hover { border-color: #00ff66; background: #1a1a1a; }
+        .card.messenger-card { border: 1px solid #00ff66; background: #0c1a12; text-align: center; }
+        .card.messenger-card h3 { color: #00ff66; font-size: 18px; letter-spacing: 2px; }
+        .card.info-card { border: 1px solid #ffcc00; background: #1a1710; }
+        .card.info-card p { color: #dddddd; margin-bottom: 8px; font-size: 13px; line-height: 1.4; }
+        .card.info-card ul { text-align: left; padding-left: 20px; font-size: 12px; color: #aaaaaa; }
+        .card.info-card ul li { margin-bottom: 5px; }
+        .card.donate-card { border: 1px dashed #00ff66; background: #111a14; }
+        .card.donate-card:hover { background: #16261c; border-style: solid; }
+        .card h3 { font-size: 16px; margin-bottom: 5px; letter-spacing: 1px; }
+        .card p { color: #888888; font-size: 12px; line-height: 1.4; }
+        .price { color: #00ff66; font-weight: bold; margin-top: 10px; font-size: 14px; }
+        .link-hint { display: inline-block; margin-top: 8px; font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: 1px; }
+        .card:hover .link-hint { color: #00ff66; }
+        .footer { margin-top: auto; color: #444444; font-size: 10px; letter-spacing: 1px; padding-bottom: 20px; }
+        a.inline-link { color: #ffcc00; text-decoration: underline; }
+        a.inline-link:hover { color: #00ff66; }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>KIKLAUD MSG // BETA</h2>
+    <div class="container">
+        <div class="header">
+            <h1>KIKLAUD</h1>
+            <p>Счастье любит тишину. Код варится здесь. 🤫</p>
         </div>
-        <div class="chat-messages" id="chat-box">
-            <!-- Сообщения будут появляться тут автоматически -->
+
+        <!-- УЛЬТИМАТИВНАЯ КНОПКА ЗАПУСКА МЕССЕНДЖЕРА -->
+        <div class="section-title">// АВТОНОМНАЯ СВЯЗЬ</div>
+        <div class="grid">
+            <a href="msg.html" class="card messenger-card">
+                <h3>ЗАПУСТИТЬ MESSENGER ➔</h3>
+                <p style="color: #a3e6be; margin-top: 5px; font-size: 11px;">Внутренний зашифрованный чат-рум экосистемы Kiklaud</p>
+            </a>
         </div>
-        <div class="chat-input-area">
-            <input type="text" id="username" class="username-input" placeholder="Введите ваш никнейм..." value="Геймер">
-            <input type="text" id="message" class="message-input" placeholder="Сообщение..." onkeydown="if(event.key === 'Enter') sendMsg()">
-            <button class="send-btn" onclick="sendMsg()">Отправить ➔</button>
+
+        <div class="section-title">// ТЕХНИЧЕСКАЯ ИНСТРУКЦИЯ СДЭК</div>
+        <div class="grid">
+            <div class="card info-card">
+                <h3 style="color: #ffcc00; margin-bottom: 10px;">ПРАВИЛА ОФОРМЛЕНИЯ ДОСТАВКИ 📦</h3>
+                <p>В целях обеспечения конфиденциальности приёмка физических отправлений и подгонов к совершеннолетию осуществляется строго через СДЭК:</p>
+                <ul>
+                    <li>Выберите позицию в каталогах ниже и оформите заказ на Ozon [0.1.12 ].</li>
+                    <li>После получения отправления передайте его в любой пункт СДЭК [ 1 ].</li>
+                    <li>В накладной укажите реквизиты ПВЗ: <br>• <b>Город:</b> Электросталь [ 20 ] <br>• <b>ПВЗ СДЭК:</b> проспект Ленина, д. 1 [0.1.12 ,  20 ] <br>• <b>Данные получателя:</b> Обратитесь в аккаунт поддержки: <a href="https://t.me" class="inline-link" target="_blank">@managerkiklaud</a> [ 1 ].</li>
+                </ul>
+            </div>
         </div>
+
+        <div class="section-title">// ПРЯМАЯ ФИНАНСОВАЯ ПОДДЕРЖКА</div>
+        <div class="grid">
+            <a href="https://ozon.ru" class="card donate-card" target="_blank">
+                <h3>ПОДДЕРЖАТЬ ПРОЕКТ // СБП 💸</h3>
+                <p>Прямой перевод на Озон Банк без комиссии через СБП на личные девайсы и хостинг.</p>
+                <div class="price">Перейти к оплате СБП ➔</div>
+            </a>
+        </div>
+
+        <div class="section-title">// ЦИФРОВЫЕ СЕРВИСЫ И ЭКОСИСТЕМА</div>
+        <div class="grid">
+            <a href="https://t.me" class="card" target="_blank">
+                <h3>@playdonate_bot 📱</h3>
+                <p>Автономный шлюз пополнения баланса Steam (СНГ) и прямой покупки игрового доната.</p>
+                <span class="link-hint">Запустить сервис ➔</span>
+            </a>
+        </div>
+
+        <div class="section-title">// КАТАЛОГ ДЕКОРА (БЮДЖЕТНЫЙ СЕГМЕНТ)</div>
+        <div class="grid">
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Интерьерный постер «GTA 6» (Формат А3) 🖼️</h3>
+                <div class="price">~ 936 ₽</div>
+            </a>
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Копилка из дерева «Системный блок» 🖥️</h3>
+                <div class="price">~ 533 ₽</div>
+            </a>
+        </div>
+
+        <div class="footer">© 2026 KIKLAUD. ALL RIGHTS RESERVED. POWERED BY AI & CLEAN CODE.</div>
     </div>
 
-    <script>
-        const serverUrl = 'http://localhost:8080/messages';
-        let lastCount = -1;
-
-        async function loadMessages() {
-            try {
-                const response = await fetch(serverUrl);
-                if (!response.ok) return;
-                const messages = await response.json();
-                
-                if (messages.length !== lastCount) {
-                    const chatBox = document.getElementById('chat-box');
-                    const currentUsername = document.getElementById('username').value.trim();
-                    chatBox.innerHTML = '';
-                    
-                    messages.forEach(msg => {
-                        const isMy = msg.username === currentUsername;
-                        chatBox.innerHTML += `
-                            <div class="msg ${isMy ? 'my-msg' : ''}">
-                                <div class="msg-meta">
-                                    <span style="color: ${isMy ? '#00ff66' : '#ffcc00'}">${msg.username}</span>
-                                    <span>${msg.time}</span>
-                                </div>
-                                <div class="msg-text">${msg.text}</div>
-                            </div>
-                        `;
-                    });
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                    lastCount = messages.length;
-                }
-            } catch (e) { console.error("Ошибка сети:", e); }
-        }
-
-        async function sendMsg() {
-            const userInp = document.getElementById('username');
-            const msgInp = document.getElementById('message');
-            const messageText = msgInp.value.trim();
-            const usernameText = userInp.value.trim();
-            
-            if (!messageText || !usernameText) return;
-
-            const payload = { username: usernameText, text: messageText };
-            msgInp.value = '';
-
-            try {
-                await fetch(serverUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                await loadMessages();
-            } catch (e) { alert('Ошибка отправки. Сервер не запущен.'); }
-        }
-
-        // Цикл обновлений чата (раз в секунду)
-        setInterval(loadMessages, 1000);
-        loadMessages();
-    </script>
 </body>
 </html>
