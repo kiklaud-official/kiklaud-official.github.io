@@ -43,8 +43,8 @@
     </div>
 
     <script>
-        // Высокоскоростной облачный KV-туннель для моментального обмена
-        const globalCloudUrl = 'https://allorigins.win' + encodeURIComponent('https://kvdb.io');
+        // Защищенный шлюз с обходом CORS-блокировок браузеров
+        const globalCloudUrl = 'https://allorigins.win' + encodeURIComponent('https://kvdb.io') + '&nocache=' + Date.now();
         const writeUrl = 'https://kvdb.io';
         let lastCount = -1;
 
@@ -53,7 +53,13 @@
                 const response = await fetch(globalCloudUrl);
                 if (!response.ok) return;
                 const wrapper = await response.json();
-                const messages = wrapper.contents ? JSON.parse(wrapper.contents) : [];
+                
+                let messages = [];
+                if (wrapper.contents) {
+                    try {
+                        messages = JSON.parse(wrapper.contents);
+                    } catch(e) { messages = []; }
+                }
                 
                 if (Array.isArray(messages) && messages.length !== lastCount) {
                     const chatBox = document.getElementById('chat-box');
@@ -83,7 +89,7 @@
                     chatBox.scrollTop = chatBox.scrollHeight;
                     lastCount = messages.length;
                 }
-            } catch (e) { console.error("Обновление...", e); }
+            } catch (e) { console.error("Синхронизация...", e); }
         }
 
         async function sendMsg() {
@@ -97,7 +103,13 @@
             try {
                 const response = await fetch(globalCloudUrl);
                 const wrapper = await response.json();
-                let messages = wrapper.contents ? JSON.parse(wrapper.contents) : [];
+                
+                let messages = [];
+                if (wrapper.contents) {
+                    try {
+                        messages = JSON.parse(wrapper.contents);
+                    } catch(e) { messages = []; }
+                }
                 if (!Array.isArray(messages)) messages = [];
 
                 const newMessage = {
@@ -107,18 +119,20 @@
                 };
 
                 messages.push(newMessage);
-                if (messages.length > 35) messages.shift(); // Лента на 35 сообщений
+                if (messages.length > 30) messages.shift(); // Ограничение на 30 сообщений в облаке
 
+                // ИСПРАВЛЕННЫЙ МЕТОД PUT ДЛЯ НАДЕЖНОЙ ПЕРЕЗАПИСИ ДАННЫХ
                 await fetch(writeUrl, {
-                    method: 'POST',
+                    method: 'PUT',
                     body: JSON.stringify(messages)
                 });
 
                 msgInp.value = '';
-                loadMessages();
-            } catch (e) { console.error("Ошибка сети:", e); }
+                await loadMessages();
+            } catch (e) { console.error("Ошибка отправки пакета:", e); }
         }
 
+        // Интервал обновления данных раз в 2 секунды
         setInterval(loadMessages, 2000);
         loadMessages();
     </script>
