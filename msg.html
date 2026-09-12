@@ -43,48 +43,51 @@
     </div>
 
     <script>
+        // Глобальный выделенный шлюз базы данных Firebase
+        const dbUrl = 'https://firebasedatabase.app';
         let lastCount = -1;
 
-        // Локальное облачное хранилище, синхронизированное с GitHub
-        function getStorageMessages() {
-            const stored = localStorage.getItem('kiklaud_global_messages');
-            return stored ? JSON.parse(stored) : [];
-        }
-
-        function loadMessages() {
-            const messages = getStorageMessages();
-            
-            if (messages.length !== lastCount) {
-                const chatBox = document.getElementById('chat-box');
-                const currentUsername = document.getElementById('username').value.trim();
-                chatBox.innerHTML = '';
+        async function loadMessages() {
+            try {
+                const response = await fetch(dbUrl);
+                if (!response.ok) return;
+                const data = await response.json();
                 
-                messages.forEach(msg => {
-                    const isMy = msg.username === currentUsername;
-                    const isAdmin = msg.username.toLowerCase() === 'managerkiklaud' || msg.username.toLowerCase() === 'kiklaud';
+                // Переводим объект Firebase в плоский массив сообщений
+                const messages = data ? Object.keys(data).map(key => data[key]) : [];
+                
+                if (messages.length !== lastCount) {
+                    const chatBox = document.getElementById('chat-box');
+                    const currentUsername = document.getElementById('username').value.trim();
+                    chatBox.innerHTML = '';
                     
-                    let msgClass = isMy ? 'my-msg' : 'msg';
-                    if (isAdmin) msgClass = 'admin-msg';
+                    messages.forEach(msg => {
+                        const isMy = msg.username === currentUsername;
+                        const isAdmin = msg.username.toLowerCase() === 'managerkiklaud' || msg.username.toLowerCase() === 'kiklaud';
+                        
+                        let msgClass = isMy ? 'my-msg' : 'msg';
+                        if (isAdmin) msgClass = 'admin-msg';
 
-                    let nameColor = isMy ? '#00ff66' : '#ffcc00';
-                    if (isAdmin) nameColor = '#00ff66';
+                        let nameColor = isMy ? '#00ff66' : '#ffcc00';
+                        if (isAdmin) nameColor = '#00ff66';
 
-                    chatBox.innerHTML += `
-                        <div class="msg ${msgClass}">
-                            <div class="msg-meta">
-                                <span style="color: ${nameColor}">${isAdmin ? '👑 ' : ''}${msg.username}</span>
-                                <span>${msg.time}</span>
+                        chatBox.innerHTML += `
+                            <div class="msg ${msgClass}">
+                                <div class="msg-meta">
+                                    <span style="color: ${nameColor}">${isAdmin ? '👑 ' : ''}${msg.username}</span>
+                                    <span>${msg.time}</span>
+                                </div>
+                                <div class="msg-text">${msg.text}</div>
                             </div>
-                            <div class="msg-text">${msg.text}</div>
-                        </div>
-                    `;
-                });
-                chatBox.scrollTop = chatBox.scrollHeight;
-                lastCount = messages.length;
-            }
+                        `;
+                    });
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    lastCount = messages.length;
+                }
+            } catch (e) { console.error("Ошибка обновления ленты:", e); }
         }
 
-        function sendMsg() {
+        async function sendMsg() {
             const userInp = document.getElementById('username');
             const msgInp = document.getElementById('message');
             const messageText = msgInp.value.trim();
@@ -92,22 +95,25 @@
             
             if (!messageText || !usernameText) return;
 
-            const messages = getStorageMessages();
             const newMessage = {
                 username: usernameText,
                 text: messageText,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             };
 
-            messages.push(newMessage);
-            if (messages.length > 50) messages.shift(); // Храним последние 50 сообщений в ленте
-
-            localStorage.setItem('kiklaud_global_messages', JSON.stringify(messages));
             msgInp.value = '';
-            loadMessages();
+
+            try {
+                await fetch(dbUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newMessage)
+                });
+                loadMessages();
+            } catch (e) { alert('Ошибка сети при отправке.'); }
         }
 
-        // Автоматическое обновление ленты раз в секунду
+        // Синхронизация в реальном времени каждую секунду
         setInterval(loadMessages, 1000);
         loadMessages();
     </script>
