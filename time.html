@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIKLAUD // WEEKLY PLANNER</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
+        body { background-color: #0d0d0d; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px 10px; }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; }
+        .header { background: #141414; border: 1px solid #262626; padding: 20px; border-radius: 4px; text-align: center; position: relative; }
+        .header h1 { font-size: 20px; letter-spacing: 3px; color: #00ff66; text-transform: uppercase; margin-bottom: 5px; }
+        .header p { color: #888888; font-size: 11px; }
+        .back-hub { position: absolute; left: 15px; top: 22px; color: #888888; text-decoration: none; font-size: 11px; text-transform: uppercase; }
+        .back-hub:hover { color: #00ff66; }
+        
+        /* Блок выбора дней недели */
+        .days-nav { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .days-nav::-webkit-scrollbar { display: none; }
+        .day-btn { background: #141414; border: 1px solid #262626; color: #888888; padding: 10px 15px; font-size: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; flex-shrink: 0; }
+        .day-btn.active { background: #16261c; border-color: #00ff66; color: #00ff66; }
+        
+        /* Список задач */
+        .tasks-box { background: #141414; border: 1px solid #262626; border-radius: 4px; padding: 15px; min-height: 250px; display: flex; flex-direction: column; gap: 10px; }
+        .task-item { background: #1f1f1f; border: 1px solid #262626; border-left: 3px solid #ffcc00; padding: 12px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
+        .task-item.completed { border-left-color: #00ff66; background: #111a14; opacity: 0.6; }
+        .task-info { display: flex; flex-direction: column; gap: 4px; width: 80%; }
+        .task-time { font-size: 11px; color: #00ff66; font-weight: bold; }
+        .task-text { font-size: 13px; line-height: 1.4; word-break: break-word; }
+        .task-text.crossed { text-decoration: line-through; color: #666666; }
+        
+        /* Кнопки управления задачей */
+        .task-actions { display: flex; gap: 10px; }
+        .action-btn { background: none; border: none; cursor: pointer; font-size: 14px; color: #666666; }
+        .action-btn:hover { color: #ff3333; }
+        .check-box { width: 18px; height: 18px; border: 1px solid #262626; background: #0d0d0d; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #00ff66; }
+        
+        /* Форма добавления новой задачи */
+        .add-box { background: #141414; border: 1px solid #262626; border-radius: 4px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .input-row { display: flex; gap: 10px; }
+        .time-input { width: 90px; background: #0d0d0d; border: 1px solid #262626; color: white; padding: 10px; font-size: 13px; border-radius: 4px; outline: none; text-align: center; }
+        .text-input { flex: 1; background: #0d0d0d; border: 1px solid #262626; color: white; padding: 10px; font-size: 13px; border-radius: 4px; outline: none; }
+        .time-input:focus, .text-input:focus { border-color: #00ff66; }
+        .add-btn { background: #00ff66; color: #0d0d0d; border: none; padding: 12px; font-weight: bold; font-size: 13px; border-radius: 4px; cursor: pointer; text-transform: uppercase; width: 100%; }
+        .add-btn:hover { background: #00cc55; }
+        .no-tasks { color: #555555; text-align: center; font-size: 12px; margin: auto 0; text-transform: uppercase; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Шапка расписания -->
+        <div class="header">
+            <a href="index.html" class="back-hub">◀ Хаб</a>
+            <h1>KIKLAUD // TIME</h1>
+            <p>Дисциплина куёт капитал. Контроль недель. 🤫⚡</p>
+        </div>
+
+        <!-- Навигация по дням недели -->
+        <div class="days-nav">
+            <button class="day-btn active" onclick="switchDay('пн')">Пн</button>
+            <button class="day-btn" onclick="switchDay('вт')">Вт</button>
+            <button class="day-btn" onclick="switchDay('ср')">Ср</button>
+            <button class="day-btn" onclick="switchDay('чт')">Чт</button>
+            <button class="day-btn" onclick="switchDay('пт')">Пт</button>
+            <button class="day-btn" onclick="switchDay('сб')">Сб</button>
+            <button class="day-btn" onclick="switchDay('вс')">Вс</button>
+        </div>
+
+        <!-- Контейнер вывода задач -->
+        <div class="tasks-box" id="tasks-container"></div>
+
+        <!-- Форма добавления новой задачи -->
+        <div class="add-box">
+            <div class="input-row">
+                <input type="text" id="task-time" class="time-input" placeholder="08:00" value="12:00">
+                <input type="text" id="task-text" class="text-input" placeholder="Введите задачу или событие...">
+            </div>
+            <button class="add-btn" onclick="addNewTask()">Добавить в расписание +</button>
+        </div>
+    </div>
+
+    <script>
+        let currentDay = 'пн';
+        
+        // Дефолтный пацанский распорядок дня Kiklaud для старта
+        const defaultSchedule = {
+            'пн': [
+                { id: 1, time: '08:00', text: 'Волоколамск // Учёба в колледже (Дисциплина)', done: false },
+                { id: 2, time: '16:00', text: 'Мониторинг Авито // Анализ цен на PS4 и iPhone', done: false },
+                { id: 3, time: '20:00', text: 'Ночной кодинг бота и поддержка серверов', done: false }
+            ],
+            'вт': [
+                { id: 4, time: '08:00', text: 'Волоколамск // Учёба в колледже', done: false },
+                { id: 5, time: '18:00', text: 'Текст трека альбом «EPOCH» // Работа со звуком', done: false }
+            ],
+            'ср': [
+                { id: 6, time: '00:00', text: 'ОФИЦИАЛЬНОЕ 18-ЛЕТИЕ 🎉 Снятие 130к и покупка PS5 Pro!', done: false },
+                { id: 7, time: '14:00', text: 'Запуск паспорта на верификацию в TikTok', done: false }
+            ],
+            'чт': [
+                { id: 8, time: '10:00', text: 'ПЕРЕЕЗД // Погрузка вещей в такси до Красногорска 📦', done: false }
+            ],
+            'пт': [
+                { id: 9, time: '12:00', text: 'Запуск товарного флиппинга на Авито в Красногорске', done: false }
+            ],
+            'сб': [{ id: 10, time: '12:00', text: 'Уплотненный айти-штурм и медиа-отчет', done: true }],
+            'вс': [{ id: 11, time: '15:00', text: 'Сбор сумок, чистка инвентаря перед выездом', done: false }]
+        };
+
+        // Загрузка расписания из вечной памяти телефона
+        let schedule = JSON.parse(localStorage.getItem('kiklaud_schedule')) || defaultSchedule;
+
+        function saveToStorage() {
+            localStorage.setItem('kiklaud_schedule', JSON.stringify(schedule));
+        }
+
+        function renderTasks() {
+            const container = document.getElementById('tasks-container');
+            container.innerHTML = '';
+            
+            const currentTasks = schedule[currentDay] || [];
+            
+            // Сортируем задачи по времени
+            currentTasks.sort((a, b) => a.time.localeCompare(b.time));
+
+            if (currentTasks.length === 0) {
+                container.innerHTML = '<div class="no-tasks">План пуст. Свободное время 🤫</div>';
+                return;
+            }
+
+            currentTasks.forEach(task => {
+                container.innerHTML += `
+                    <div class="task-item ${task.done ? 'completed' : ''}">
+                        <div class="check-box" onclick="toggleTask(${task.id})">
+                            ${task.done ? '✓' : ''}
+                        </div>
+                        <div class="task-info" onclick="toggleTask(${task.id})">
+                            <span class="task-time">${task.time}</span>
+                            <span class="task-text ${task.done ? 'crossed' : ''}">${task.text}</span>
+                        </div>
+                        <div class="task-actions">
+                            <button class="action-btn" onclick="deleteTask(${task.id})">🗑</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function switchDay(day) {
+            currentDay = day;
+            document.querySelectorAll('.day-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.toLowerCase() === day) btn.classList.add('active');
+            });
+            renderTasks();
+        }
+
+        function toggleTask(id) {
+            const currentTasks = schedule[currentDay] || [];
+            const task = currentTasks.find(t => t.id === id);
+            if (task) {
+                task.done = !task.done;
+                saveToStorage();
+                renderTasks();
+            }
+        }
+
+        function addNewTask() {
+            const timeInp = document.getElementById('task-time');
+            const textInp = document.getElementById('task-text');
+            const text = textInp.value.trim();
+            const time = timeInp.value.trim();
+
+            if (!text || !time) return;
+
+            if (!schedule[currentDay]) schedule[currentDay] = [];
+            
+            const newTask = {
+                id: Date.now(),
+                time: time,
+                text: text,
+                done: false
+            };
+
+            schedule[currentDay].push(newTask);
+            saveToStorage();
