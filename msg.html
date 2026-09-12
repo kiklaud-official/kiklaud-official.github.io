@@ -43,17 +43,17 @@
     </div>
 
     <script>
-        const apiBackupUrl = 'https://jsonbin.io';
-        const apiKey = '$2a$10$w8LqA3U2fWw/pHe.b5E5duv0bSiaF1f0yW0UeU1hA4E6q6E3uI62i';
+        // Высокоскоростной облачный KV-туннель для моментального обмена
+        const globalCloudUrl = 'https://allorigins.win' + encodeURIComponent('https://kvdb.io');
+        const writeUrl = 'https://kvdb.io';
         let lastCount = -1;
 
         async function loadMessages() {
             try {
-                const response = await fetch(apiBackupUrl, {
-                    headers: { 'X-Master-Key': apiKey, 'X-Bin-Meta': 'false' }
-                });
+                const response = await fetch(globalCloudUrl);
                 if (!response.ok) return;
-                const messages = await response.json();
+                const wrapper = await response.json();
+                const messages = wrapper.contents ? JSON.parse(wrapper.contents) : [];
                 
                 if (Array.isArray(messages) && messages.length !== lastCount) {
                     const chatBox = document.getElementById('chat-box');
@@ -83,7 +83,7 @@
                     chatBox.scrollTop = chatBox.scrollHeight;
                     lastCount = messages.length;
                 }
-            } catch (e) { console.error("Ошибка обновления:", e); }
+            } catch (e) { console.error("Обновление...", e); }
         }
 
         async function sendMsg() {
@@ -95,10 +95,9 @@
             if (!messageText || !usernameText) return;
 
             try {
-                const response = await fetch(apiBackupUrl, {
-                    headers: { 'X-Master-Key': apiKey, 'X-Bin-Meta': 'false' }
-                });
-                let messages = await response.json();
+                const response = await fetch(globalCloudUrl);
+                const wrapper = await response.json();
+                let messages = wrapper.contents ? JSON.parse(wrapper.contents) : [];
                 if (!Array.isArray(messages)) messages = [];
 
                 const newMessage = {
@@ -108,14 +107,10 @@
                 };
 
                 messages.push(newMessage);
-                if (messages.length > 40) messages.shift();
+                if (messages.length > 35) messages.shift(); // Лента на 35 сообщений
 
-                await fetch(apiBackupUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': apiKey
-                    },
+                await fetch(writeUrl, {
+                    method: 'POST',
                     body: JSON.stringify(messages)
                 });
 
@@ -124,7 +119,7 @@
             } catch (e) { console.error("Ошибка сети:", e); }
         }
 
-        setInterval(loadMessages, 1500);
+        setInterval(loadMessages, 2000);
         loadMessages();
     </script>
 </body>
