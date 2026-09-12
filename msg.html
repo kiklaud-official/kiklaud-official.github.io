@@ -43,22 +43,24 @@
     </div>
 
     <script>
-        // Защищенный шлюз с обходом CORS-блокировок браузеров
-        const globalCloudUrl = 'https://allorigins.win' + encodeURIComponent('https://kvdb.io') + '&nocache=' + Date.now();
-        const writeUrl = 'https://kvdb.io';
+        // Глобальный, на 100% открытый REST-коллектор без CORS ограничений
+        const serverEndpoint = 'https://allorigins.win' + encodeURIComponent('https://restful-api.dev') + '&nocache=' + Date.now();
+        const writeEndpoint = 'https://restful-api.dev';
         let lastCount = -1;
 
         async function loadMessages() {
             try {
-                const response = await fetch(globalCloudUrl);
+                const response = await fetch(serverEndpoint);
                 if (!response.ok) return;
                 const wrapper = await response.json();
                 
                 let messages = [];
                 if (wrapper.contents) {
-                    try {
-                        messages = JSON.parse(wrapper.contents);
-                    } catch(e) { messages = []; }
+                    const rawData = JSON.parse(wrapper.contents);
+                    const cloudData = Array.isArray(rawData) ? rawData[0] : rawData;
+                    if (cloudData && cloudData.data && cloudData.data.history) {
+                        messages = cloudData.data.history;
+                    }
                 }
                 
                 if (Array.isArray(messages) && messages.length !== lastCount) {
@@ -89,7 +91,7 @@
                     chatBox.scrollTop = chatBox.scrollHeight;
                     lastCount = messages.length;
                 }
-            } catch (e) { console.error("Синхронизация...", e); }
+            } catch (e) { console.error("Обновление ленты...", e); }
         }
 
         async function sendMsg() {
@@ -100,17 +102,21 @@
             
             if (!messageText || !usernameText) return;
 
+            // Мгновенно очищаем поле, чтобы дать пользователю отклик
+            msgInp.value = '';
+
             try {
-                const response = await fetch(globalCloudUrl);
+                const response = await fetch(serverEndpoint);
                 const wrapper = await response.json();
                 
                 let messages = [];
                 if (wrapper.contents) {
-                    try {
-                        messages = JSON.parse(wrapper.contents);
-                    } catch(e) { messages = []; }
+                    const rawData = JSON.parse(wrapper.contents);
+                    const cloudData = Array.isArray(rawData) ? rawData[0] : rawData;
+                    if (cloudData && cloudData.data && cloudData.data.history) {
+                        messages = cloudData.data.history;
+                    }
                 }
-                if (!Array.isArray(messages)) messages = [];
 
                 const newMessage = {
                     username: usernameText,
@@ -119,20 +125,23 @@
                 };
 
                 messages.push(newMessage);
-                if (messages.length > 30) messages.shift(); // Ограничение на 30 сообщений в облаке
+                if (messages.length > 30) messages.shift(); // Лента на 30 сообщений
 
-                // ИСПРАВЛЕННЫЙ МЕТОД PUT ДЛЯ НАДЕЖНОЙ ПЕРЕЗАПИСИ ДАННЫХ
-                await fetch(writeUrl, {
-                    method: 'PUT',
-                    body: JSON.stringify(messages)
+                // Отправляем пакет на вечное глобальное хранение
+                await fetch(writeEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: "ff8081819328c21f01932906e4ff025b",
+                        name: "KIKLAUD_GLOBAL_STORAGE",
+                        data: { history: messages }
+                    })
                 });
 
-                msgInp.value = '';
                 await loadMessages();
-            } catch (e) { console.error("Ошибка отправки пакета:", e); }
+            } catch (e) { console.error("Ошибка шлюза:", e); }
         }
 
-        // Интервал обновления данных раз в 2 секунды
         setInterval(loadMessages, 2000);
         loadMessages();
     </script>
