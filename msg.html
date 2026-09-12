@@ -43,7 +43,6 @@
     </div>
 
     <script>
-        // Стабильный, открытый REST-коллектор для моментальной глобальной синхронизации
         const apiBackupUrl = 'https://jsonbin.io';
         const apiKey = '$2a$10$w8LqA3U2fWw/pHe.b5E5duv0bSiaF1f0yW0UeU1hA4E6q6E3uI62i';
         let lastCount = -1;
@@ -109,7 +108,7 @@
                 };
 
                 messages.push(newMessage);
-                if (messages.length > 40) messages.shift(); // Ограничение ленты до 40 сообщений
+                if (messages.length > 40) messages.shift();
 
                 await fetch(apiBackupUrl, {
                     method: 'PUT',
@@ -125,7 +124,6 @@
             } catch (e) { console.error("Ошибка сети:", e); }
         }
 
-        // Интервал обновления ленты (раз в 1.5 секунды)
         setInterval(loadMessages, 1500);
         loadMessages();
     </script>
