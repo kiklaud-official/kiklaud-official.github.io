@@ -43,20 +43,20 @@
     </div>
 
     <script>
-        // Глобальный выделенный шлюз базы данных Firebase
-        const dbUrl = 'https://firebasedatabase.app';
+        // Открытый суверенный шлюз для моментальной синхронизации KIKLAUD
+        const apiBackupUrl = 'https://jsonbin.io';
+        const apiKey = '$2a$10$w8LqA3U2fWw/pHe.b5E5duv0bSiaF1f0yW0UeU1hA4E6q6E3uI62i';
         let lastCount = -1;
 
         async function loadMessages() {
             try {
-                const response = await fetch(dbUrl);
+                const response = await fetch(apiBackupUrl, {
+                    headers: { 'X-Master-Key': apiKey, 'X-Bin-Meta': 'false' }
+                });
                 if (!response.ok) return;
-                const data = await response.json();
+                const messages = await response.json();
                 
-                // Переводим объект Firebase в плоский массив сообщений
-                const messages = data ? Object.keys(data).map(key => data[key]) : [];
-                
-                if (messages.length !== lastCount) {
+                if (Array.isArray(messages) && messages.length !== lastCount) {
                     const chatBox = document.getElementById('chat-box');
                     const currentUsername = document.getElementById('username').value.trim();
                     chatBox.innerHTML = '';
@@ -84,7 +84,7 @@
                     chatBox.scrollTop = chatBox.scrollHeight;
                     lastCount = messages.length;
                 }
-            } catch (e) { console.error("Ошибка обновления ленты:", e); }
+            } catch (e) { console.error("Ошибка обновления:", e); }
         }
 
         async function sendMsg() {
@@ -95,26 +95,39 @@
             
             if (!messageText || !usernameText) return;
 
-            const newMessage = {
-                username: usernameText,
-                text: messageText,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-
-            msgInp.value = '';
-
             try {
-                await fetch(dbUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newMessage)
+                // Скачиваем текущую историю
+                const response = await fetch(apiBackupUrl, {
+                    headers: { 'X-Master-Key': apiKey, 'X-Bin-Meta': 'false' }
                 });
+                let messages = await response.json();
+                if (!Array.isArray(messages)) messages = [];
+
+                const newMessage = {
+                    username: usernameText,
+                    text: messageText,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                };
+
+                messages.push(newMessage);
+                if (messages.length > 40) messages.shift(); // Лента последних 40 сообщений
+
+                // Перезаписываем глобальный массив в облаке
+                await fetch(apiBackupUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': apiKey
+                    },
+                    body: JSON.stringify(messages)
+                });
+
+                msgInp.value = '';
                 loadMessages();
-            } catch (e) { alert('Ошибка сети при отправке.'); }
+            } catch (e) { console.error("Ошибка сети:", e); }
         }
 
-        // Синхронизация в реальном времени каждую секунду
-        setInterval(loadMessages, 1000);
+        setInterval(loadMessages, 1500);
         loadMessages();
     </script>
 </body>
