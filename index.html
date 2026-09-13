@@ -14,10 +14,20 @@
         .grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
         .card { background: #141414; border: 1px solid #262626; padding: 20px; border-radius: 4px; text-align: left; transition: all 0.3s ease; text-decoration: none; color: white; display: block; }
         .card:hover { border-color: #00ff66; background: #1a1a1a; }
+        
+        /* Стили интерактивных PWA карточек */
         .card.messenger-card { border: 1px solid #00ff66; background: #0c1a12; text-align: center; }
         .card.messenger-card h3 { color: #00ff66; font-size: 18px; letter-spacing: 2px; }
         .card.planner-card { border: 1px solid #ffcc00; background: #1a1710; text-align: center; }
         .card.planner-card h3 { color: #ffcc00; font-size: 18px; letter-spacing: 2px; }
+        
+        /* Стили Социальных Сетей */
+        .card.tg-card { border-color: #0088cc; background: #0c161f; }
+        .card.tg-card:hover { border-color: #00a8ff; }
+        .card.tt-card { border-color: #ff0050; background: #1f0c13; }
+        .card.tt-card:hover { border-color: #00f2fe; }
+        .card.inst-card { border-color: #e1306c; background: #1f0c16; }
+        .card.inst-card:hover { border-color: #f77737; }
         
         /* Стили интерактивного донат-модуля */
         .widget-box { background: #141414; border: 1px solid #00ff66; border-radius: 4px; padding: 20px; text-align: left; margin-bottom: 30px; }
@@ -29,18 +39,20 @@
         
         .price { color: #00ff66; font-weight: bold; margin-top: 10px; font-size: 14px; }
         .link-hint { display: inline-block; margin-top: 8px; font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: 1px; }
+        .card:hover .link-hint { color: #00ff66; }
         .footer { margin-top: auto; color: #444444; font-size: 10px; letter-spacing: 1px; padding-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Шапка официального хаба -->
         <div class="header">
             <h1>KIKLAUD</h1>
-            <p>Счастье любит тишину. Сервисы запущены. 🤫</p>
+            <p>Счастье любит тишину. Вся экосистема здесь. 🤫</p>
         </div>
 
-        <!-- ИНТЕРАКТИВНАЯ ОНЛАЙН ДОНАТ-ВИТРИНА С КНОПКОЙ СБП -->
+        <!-- ИНТЕРАКТИВНЫЙ ДОНАТ-ВИДЖЕТ (ССЫЛКА НАМЕРТВО ВШИТА) -->
         <div class="section-title">// АВТОНОМНЫЙ ПУНКТ ПОПОЛНЕНИЯ И ДОНАТА</div>
         <div class="widget-box">
             <div class="widget-title">⚡ ИГРОВОЙ ДОНАТ // ГЕНЕРАТОР ЗАКАЗА</div>
@@ -61,20 +73,40 @@
             <label style="font-size: 11px; color: #888888; display: block; margin-bottom: 5px;">3. Укажите сумму пополнения (руб):</label>
             <input type="number" id="game-amount" class="text-input" placeholder="От 100 до 5000 ₽" value="500">
 
-            <!-- ТВОЯ ЖЕЛЕЗОБЕТОННАЯ ССЫЛКА НА ОЗОН БАНК (СБП) -->
             <a href="https://finance.ozon.ru/apps/sbp/ozonbankpay/019a12e1-82a0-7b94-9613-a6daed07845b" class="pay-btn" onclick="processOrder(event)" target="_blank">Перейти к оплате СБП ➔</a>
         </div>
 
-        <!-- ТВОЯ ЖЕЛЕЗОБЕТОННАЯ ССЫЛКА НА ТЕЛЕГРАМ БОТА -->
-        <div class="section-title">// ЦИФРОВЫЕ СЕРВИСЫ И ЭКОСИСТЕМА</div>
+        <!-- ЦИФРОВЫЕ СЕРВИСЫ -->
+        <div class="section-title">// ЦИФРОВЫЕ СЕРВИСЫ И БОТЫ</div>
         <div class="grid">
             <a href="https://t.me/Playdonatbot" class="card" target="_blank" style="border-color: #00ff66; background: #111a14;">
                 <h3>@Playdonatbot 📱</h3>
-                <p>Прямой автономный шлюз экосистемы в Telegram. Запуск каталога и реферальной системы по клику.</p>
+                <p>Прямой автономный шлюз экосистемы в Telegram. Запуск каталога доната и реферальной системы.</p>
                 <span class="link-hint" style="color: #00ff66;">Запустить бота в Telegram ➔</span>
             </a>
         </div>
 
+        <!-- СЛЕДУЮЩИЙ БЛОК: СОЦИАЛЬНЫЕ СЕТИ И МЕДИА-ПЛАТФОРМЫ -->
+        <div class="section-title">// МЕДИА СЕТЬ БРЕНДА</div>
+        <div class="grid">
+            <a href="https://t.me/kiklaud" class="card tg-card" target="_blank">
+                <h3 style="color: #00a8ff;">TELEGRAM // OFFICIAL CHANNEL 📢</h3>
+                <p>Главный паблик гвардии. Логи бэкенда, отчёты по товарному бизнесу на Авито и треки грядущего альбома «EPOCH» [ 1 ].</p>
+                <span class="link-hint" style="color: #00a8ff;">Вступить в канал ➔</span>
+            </a>
+            <a href="https://www.tiktok.com/@kiklaud" class="card tt-card" target="_blank">
+                <h3 style="color: #ff0050;">TIKTOK // НАШ АКТИВ 🎬</h3>
+                <p>Короткие видео, вирусные разговорные манифесты и демонстрация софта. Трафик рвёт рекомендации [ 1 ].</p>
+                <span class="link-hint" style="color: #ff0050;">Смотреть контент ➔</span>
+            </a>
+            <a href="https://instagram.com" class="card inst-card" target="_blank">
+                <h3 style="color: #e1306c;">INSTAGRAM // МЕДИА БЛОГ 📸</h3>
+                <p>Личные фотографии, лайфстайл и эксклюзивные кадры из нового штаба в Красногорске и Электростали [ 1 ,  20 ].</p>
+                <span class="link-hint" style="color: #e1306c;">Подписаться на профиль ➔</span>
+            </a>
+        </div>
+
+        <!-- СЕКЦИЯ АВТОНОМНОЙ ИНФРАСТРУКТУРА (PWA ПРИЛОЖЕНИЯ) -->
         <div class="section-title">// АВТОНОМНАЯ ИНФРАСТРУКТУРА</div>
         <div class="grid">
             <a href="msg.html" class="card messenger-card">
@@ -87,15 +119,37 @@
             </a>
         </div>
 
+        <!-- КАТАЛОГ OZON ТОВАРОВ -->
         <div class="section-title">// КАТАЛОГ ДЕКОРА (БЮДЖЕТНЫЙ СЕГМЕНТ)</div>
         <div class="grid">
             <a href="https://ozon.ru" class="card" target="_blank">
                 <h3>Интерьерный постер «GTA 6» (Формат А3) 🖼️</h3>
                 <div class="price">~ 936 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
             </a>
             <a href="https://ozon.ru" class="card" target="_blank">
-                <h3>Копилка из дерева «Системный блок» 🖥️</h3>
+                <h3>Копилка из дерева «Системный блок Bars» 🖥️</h3>
                 <div class="price">~ 533 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+        </div>
+
+        <div class="section-title">// КИБЕРСПОРТИВНОЕ ОБОРУДОВАНИЕ</div>
+        <div class="grid">
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Напольный светодиодный светильник RGB LED 💡</h3>
+                <div class="price">~ 1 695 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Профессиональный геймпад Sony DualSense Edge 🎮</h3>
+                <div class="price">~ 19 533 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
+            </a>
+            <a href="https://ozon.ru" class="card" target="_blank">
+                <h3>Внешний твердотельный накопитель Samsung T7 (1 TB) 📦</h3>
+                <div class="price">~ 22 951 ₽</div>
+                <span class="link-hint">Смотреть на Ozon ➔</span>
             </a>
         </div>
 
@@ -104,18 +158,3 @@
 
     <script>
         function processOrder(event) {
-            const game = document.getElementById('game-select').value;
-            const login = document.getElementById('game-login').value.trim();
-            const amount = document.getElementById('game-amount').value.trim();
-
-            if (!login || !amount) {
-                event.preventDefault();
-                alert('Пожалуйста, заполните ваш игровой логин и сумму заказа!');
-                return;
-            }
-
-            alert('📋 Заказ сформирован экосистемой Kiklaud!\n\n🕹️ Сервис: ' + game + '\n👤 Аккаунт: ' + login + '\n💳 Сумма к зачислению: ' + amount + ' ₽\n\nПосле оплаты через СБП, чек зачислится автоматически!');
-        }
-    </script>
-</body>
-</html>
