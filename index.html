@@ -61,7 +61,18 @@
             <label style="font-size: 11px; color: #888888; display: block; margin-bottom: 5px;">3. Укажите сумму пополнения (руб):</label>
             <input type="number" id="game-amount" class="text-input" placeholder="От 100 до 5000 ₽" value="500">
 
-            <a href="https://ozon.ru" class="pay-btn" onclick="processOrder(event)" target="_blank">Перейти к оплате СБП ➔</a>
+            <!-- ТВОЯ ЖЕЛЕЗОБЕТОННАЯ ССЫЛКА НА ОЗОН БАНК (СБП) -->
+            <a href="https://finance.ozon.ru/apps/sbp/ozonbankpay/019a12e1-82a0-7b94-9613-a6daed07845b" class="pay-btn" onclick="processOrder(event)" target="_blank">Перейти к оплате СБП ➔</a>
+        </div>
+
+        <!-- ТВОЯ ЖЕЛЕЗОБЕТОННАЯ ССЫЛКА НА ТЕЛЕГРАМ БОТА -->
+        <div class="section-title">// ЦИФРОВЫЕ СЕРВИСЫ И ЭКОСИСТЕМА</div>
+        <div class="grid">
+            <a href="https://t.me/Playdonatbot" class="card" target="_blank" style="border-color: #00ff66; background: #111a14;">
+                <h3>@Playdonatbot 📱</h3>
+                <p>Прямой автономный шлюз экосистемы в Telegram. Запуск каталога и реферальной системы по клику.</p>
+                <span class="link-hint" style="color: #00ff66;">Запустить бота в Telegram ➔</span>
+            </a>
         </div>
 
         <div class="section-title">// АВТОНОМНАЯ ИНФРАСТРУКТУРА</div>
@@ -103,7 +114,6 @@
                 return;
             }
 
-            // Выводим геймеру итоговый лог-чек перед редиректом на Озон СБП
             alert('📋 Заказ сформирован экосистемой Kiklaud!\n\n🕹️ Сервис: ' + game + '\n👤 Аккаунт: ' + login + '\n💳 Сумма к зачислению: ' + amount + ' ₽\n\nПосле оплаты через СБП, чек зачислится автоматически!');
         }
     </script>
