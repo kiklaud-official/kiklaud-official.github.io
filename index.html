@@ -31,7 +31,7 @@
         .card.tt-card { border-color: #ff0050; }
         .card.inst-card { border-color: #e1306c; }
         
-        /* Блок инфо-биографии */
+        /* Блок инфо-биографии (ОБНОВЛЁННЫЙ) */
         .bio-box { background: #141414; border: 1px solid #ffcc00; padding: 22px; border-radius: 4px; text-align: left; line-height: 1.6; font-size: 13px; color: #dddddd; }
         .bio-box p { margin-bottom: 12px; }
         .bio-box span { color: #ffcc00; font-weight: bold; }
@@ -49,15 +49,15 @@
             <p>Счастье любит тишину. Доступ консолидирован. 🤫</p>
         </div>
 
-        <!-- КНОПКА 1: БИОГРАФИЯ (НЕ ТОЧНАЯ, СТРОГАЯ) -->
+        <!-- КНОПКА 1: БИОГРАФИЯ (ОБНОВЛЕННАЯ ПО ТВОИМ ТРЕБОВАНИЯМ) -->
         <button class="bio-trigger" onclick="toggleSection('bio-content')">👤 БИОГРАФИЯ // KIKLAUD</button>
         
         <div id="bio-content" class="hidden-section">
             <div class="bio-box">
-                <p><span>// ПУТЬ БРЕНДА KIKLAUD</span></p>
-                <p>Проект вырос из абсолютного нуля, тяжелого физического труда на ночных логистических сменах складов и жесткого преодоления внешних обстоятельств. Без сторонней поддержки и бюджетов, за счёт хладнокровия и ночного программирования, была заложена база суверенной цифровой инфраструктуры.</p>
-                <p><span>🔥 НАСТОЯЩЕЕ ВРЕМЯ:</span> Развитие автономных кибер-сервисов, автоматизация игрового софта, товарные направления и медиа-активность.</p>
-                <p>Дисциплина куёт капитал. Мы работаем молча и только на результат. Код варится здесь.</p>
+                <p><span>// ЛОКАЦИЯ И СТАТУС ПРОЕКТА</span></p>
+                <p>На данный момент живу в <span>Электростали</span>. До этого жил в <span>Шаховской</span>.</p>
+                <p>Проект KIKLAUD — это полностью независимая разработка и масштабирование цифровых продуктов. Здесь создаётся и поддерживается суверенный софт, запускаются автоматизированные боты-рандомайзеры и развиваются товарные направления.</p>
+                <p>Дисциплина куёт капитал. Мы работаем хладнокровно, молча и только на результат. Код варится здесь. ⚡</p>
             </div>
         </div>
 
@@ -69,7 +69,7 @@
             <div class="section-title">// СЕРВИСЫ И РОЗЫГРЫШИ</div>
             <a href="https://t.me" class="card" target="_blank" style="border-color: #00ff66; background: #111a14;">
                 <h3 style="color: #00ff66;">@Playdonatbot 📱</h3>
-                <p>Новый автономный бот-рандомайзер. Участвуй в честном розыгрыше с увеличенным в 2 раза призовым фондом [1]!</p>
+                <p>Новый автономный бот-рандомайзер. Участвуй в честном розыгрыше с увеличенным в 2 раза призовым фондом!</p>
                 <span class="link-hint" style="color: #00ff66;">Запустить рандомайзер ➔</span>
             </a>
 
@@ -93,16 +93,16 @@
             <div class="section-title">// УТИЛИТЫ И ОПЛАТА</div>
             <a href="https://ozon.ru" class="card" target="_blank" style="border-color: #ffcc00;">
                 <h3 style="color: #ffcc00;">ПОДДЕРЖАТЬ ПРОЕКТ // ОЗОН СБП 💸</h3>
-                <p>Моментальный перевод без комиссии на личные девайсы и продление хостингов [1].</p>
+                <p>Моментальный перевод без комиссии на личные девайсы и продление хостингов.</p>
                 <span class="link-hint" style="color: #ffcc00;">Перейти к оплате ➔</span>
             </a>
             <a href="msg.html" class="card">
                 <h3>ЗАПУСТИТЬ MESSENGER ➔</h3>
-                <p>Внутренний анонимный чат-рум экосистемы Kiklaud [1].</p>
+                <p>Внутренний анонимный чат-рум экосистемы Kiklaud.</p>
             </a>
             <a href="time.html" class="card">
                 <h3>РАСПОРЯДОК ДНЯ // TIME ➔</h3>
-                <p>Интерактивный еженедельный планировщик задач [1].</p>
+                <p>Интерактивный еженедельный планировщик задач.</p>
             </a>
 
             <div class="section-title">// КАТАЛОГ ДЕКОРА</div>
@@ -123,17 +123,14 @@
         function toggleSection(sectionId) {
             const section = document.getElementById(sectionId);
             
-            // Если секция уже открыта — плавно закрываем её
             if (section.classList.contains('show')) {
                 section.classList.remove('show');
                 setTimeout(() => { section.style.display = 'none'; }, 400);
             } else {
-                // Закрываем другие секции, чтобы сайт оставался компактным
                 document.querySelectorAll('.hidden-section').forEach(s => {
                     s.classList.remove('show');
                     s.style.display = 'none';
                 });
-                // Открываем текущую секцию
                 section.style.display = 'flex';
                 setTimeout(() => { section.classList.add('show'); }, 10);
             }
