@@ -7,36 +7,37 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
         body { background-color: #0d0d0d; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
-        .container { width: 100%; max-width: 480px; text-align: center; margin-top: 20px; }
+        .container { width: 100%; max-width: 480px; text-align: center; margin-top: 40px; }
         .header h1 { font-size: 28px; letter-spacing: 4px; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
-        .header p { color: #888888; font-size: 12px; margin-bottom: 30px; }
-        .section-title { font-size: 14px; color: #00ff66; text-align: left; margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; }
-        .grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-        .card { background: #141414; border: 1px solid #262626; padding: 20px; border-radius: 4px; text-align: left; transition: all 0.3s ease; text-decoration: none; color: white; display: block; }
+        .header p { color: #888888; font-size: 12px; margin-bottom: 40px; }
+        
+        /* Главные управляющие кнопки-триггеры */
+        .main-trigger { background: #0c1a12; border: 2px solid #00ff66; color: #00ff66; padding: 18px; font-size: 15px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; cursor: pointer; width: 100%; margin-bottom: 15px; transition: all 0.3s ease; display: block; text-align: center; }
+        .main-trigger:hover { background: #00ff66; color: #0d0d0d; box-shadow: 0 0 15px rgba(0, 255, 102, 0.4); }
+        
+        .bio-trigger { background: #1a1710; border: 2px solid #ffcc00; color: #ffcc00; padding: 18px; font-size: 15px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; cursor: pointer; width: 100%; margin-bottom: 30px; transition: all 0.3s ease; }
+        .bio-trigger:hover { background: #ffcc00; color: #0d0d0d; box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
+
+        /* Скрытые выпадающие секции */
+        .hidden-section { display: none; flex-direction: column; gap: 15px; margin-bottom: 30px; text-align: left; opacity: 0; transform: translateY(-10px); transition: all 0.4s ease; }
+        .hidden-section.show { display: flex; opacity: 1; transform: translateY(0); }
+
+        .section-title { font-size: 13px; color: #00ff66; margin-bottom: 5px; letter-spacing: 2px; text-transform: uppercase; }
+        .card { background: #141414; border: 1px solid #262626; padding: 18px; border-radius: 4px; text-decoration: none; color: white; display: block; }
         .card:hover { border-color: #00ff66; background: #1a1a1a; }
         
-        .card.messenger-card { border: 1px solid #00ff66; background: #0c1a12; text-align: center; }
-        .card.messenger-card h3 { color: #00ff66; font-size: 18px; letter-spacing: 2px; }
-        .card.planner-card { border: 1px solid #ffcc00; background: #1a1710; text-align: center; }
-        .card.planner-card h3 { color: #ffcc00; font-size: 18px; letter-spacing: 2px; }
+        /* Цвета медиа-карточек */
+        .card.tg-card { border-color: #0088cc; }
+        .card.tt-card { border-color: #ff0050; }
+        .card.inst-card { border-color: #e1306c; }
         
-        .card.tg-card { border-color: #0088cc; background: #0c161f; }
-        .card.tg-card:hover { border-color: #00a8ff; }
-        .card.tt-card { border-color: #ff0050; background: #1f0c13; }
-        .card.tt-card:hover { border-color: #00f2fe; }
-        .card.inst-card { border-color: #e1306c; background: #1f0c16; }
-        .card.inst-card:hover { border-color: #f77737; }
-        
-        .widget-box { background: #141414; border: 1px solid #00ff66; border-radius: 4px; padding: 20px; text-align: left; margin-bottom: 30px; }
-        .widget-title { color: #00ff66; font-size: 16px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .select-input, .text-input { background: #0d0d0d; border: 1px solid #262626; color: white; padding: 12px; font-size: 13px; border-radius: 4px; width: 100%; outline: none; margin-bottom: 12px; }
-        .select-input:focus, .text-input:focus { border-color: #00ff66; }
-        .pay-btn { background: #00ff66; color: #0d0d0d; border: none; padding: 14px; font-weight: bold; font-size: 14px; border-radius: 4px; cursor: pointer; text-transform: uppercase; width: 100%; display: block; text-align: center; text-decoration: none; margin-top: 5px; }
-        .pay-btn:hover { background: #00cc55; }
-        
-        .price { color: #00ff66; font-weight: bold; margin-top: 10px; font-size: 14px; }
-        .link-hint { display: inline-block; margin-top: 8px; font-size: 10px; color: #555555; text-transform: uppercase; letter-spacing: 1px; }
-        .card:hover .link-hint { color: #00ff66; }
+        /* Блок инфо-биографии */
+        .bio-box { background: #141414; border: 1px solid #ffcc00; padding: 22px; border-radius: 4px; text-align: left; line-height: 1.6; font-size: 13px; color: #dddddd; }
+        .bio-box p { margin-bottom: 12px; }
+        .bio-box span { color: #ffcc00; font-weight: bold; }
+
+        .price { color: #00ff66; font-weight: bold; margin-top: 8px; font-size: 13px; }
+        .link-hint { display: inline-block; margin-top: 6px; font-size: 10px; color: #555555; text-transform: uppercase; }
         .footer { margin-top: auto; color: #444444; font-size: 10px; letter-spacing: 1px; padding-bottom: 20px; }
     </style>
 </head>
@@ -44,80 +45,67 @@
 
     <div class="container">
         <div class="header">
-            <h1>KIKLAUD // HUB</h1>
-            <p>Счастье любит тишину. Сервисы активны. 🤫</p>
+            <h1>KIKLAUD // SYSTEM</h1>
+            <p>Счастье любит тишину. Доступ консолидирован. 🤫</p>
         </div>
 
-        <!-- ИНТЕРАКТИВНЫЙ ДОНАТ-ВИДЖЕТ -->
-        <div class="section-title">// АВТОНОМНЫЙ ПУНКТ ПОПОЛНЕНИЯ</div>
-        <div class="widget-box">
-            <div class="widget-title">⚡ ИГРОВОЙ ДОНАТ // ГЕНЕРАТОР</div>
+        <!-- КНОПКА 1: БИОГРАФИЯ (НЕ ТОЧНАЯ, СТРОГАЯ) -->
+        <button class="bio-trigger" onclick="toggleSection('bio-content')">👤 БИОГРАФИЯ // KIKLAUD</button>
+        
+        <div id="bio-content" class="hidden-section">
+            <div class="bio-box">
+                <p><span>// ПУТЬ БРЕНДА KIKLAUD</span></p>
+                <p>Проект вырос из абсолютного нуля, тяжелого физического труда на ночных логистических сменах складов и жесткого преодоления внешних обстоятельств. Без сторонней поддержки и бюджетов, за счёт хладнокровия и ночного программирования, была заложена база суверенной цифровой инфраструктуры.</p>
+                <p><span>🔥 НАСТОЯЩЕЕ ВРЕМЯ:</span> Развитие автономных кибер-сервисов, автоматизация игрового софта, товарные направления и медиа-активность.</p>
+                <p>Дисциплина куёт капитал. Мы работаем молча и только на результат. Код варится здесь.</p>
+            </div>
+        </div>
+
+        <!-- КНОПКА 2: ЕДИНЫЙ ИНТЕРАКТИВНЫЙ ВХОД ДЛЯ ВСЕХ ССЫЛОК -->
+        <button class="main-trigger" onclick="toggleSection('links-content')">⚡ ОТКРЫТЬ ВСЕ СЕРВИСЫ</button>
+
+        <div id="links-content" class="hidden-section">
             
-            <label style="font-size: 11px; color: #888888; display: block; margin-bottom: 5px;">1. Выберите платформу:</label>
-            <select id="game-select" class="select-input">
-                <option value="GTA_Majestic">🚗 GTA Online // Majestic RP</option>
-                <option value="GTA_Arizona">🚗 GTA Online // Arizona 5</option>
-                <option value="Steam_CIS">🌐 Steam // Баланс (СНГ)</option>
-                <option value="CS2_Skins">🔫 CS 2 // Ключи и Скины</option>
-                <option value="PUBG_UC">🍳 PUBG Mobile // UC</option>
-                <option value="Brawl_Gems">⭐ Brawl Stars // Гемы</option>
-            </select>
-
-            <label style="font-size: 11px; color: #888888; display: block; margin-bottom: 5px;">2. Введите Логин / ID / Тег:</label>
-            <input type="text" id="game-login" class="text-input" placeholder="Идентификатор аккаунта">
-
-            <label style="font-size: 11px; color: #888888; display: block; margin-bottom: 5px;">3. Укажите сумму (руб):</label>
-            <input type="number" id="game-amount" class="text-input" placeholder="Сумма пополнения" value="500">
-
-            <a href="https://finance.ozon.ru/apps/sbp/ozonbankpay/019a12e1-82a0-7b94-9613-a6daed07845b" class="pay-btn" onclick="processOrder(event)" target="_blank">Перейти к оплате СБП ➔</a>
-        </div>
-
-        <!-- ЦИФРОВЫЕ СЕРВИСЫ -->
-        <div class="section-title">// ЦИФРОВЫЕ СЕРВИСЫ</div>
-        <div class="grid">
+            <div class="section-title">// СЕРВИСЫ И РОЗЫГРЫШИ</div>
             <a href="https://t.me" class="card" target="_blank" style="border-color: #00ff66; background: #111a14;">
-                <h3>@Playdonatbot 📱</h3>
-                <p>Автономный шлюз в Telegram [0.1.13 ]. Запуск каталога доната и реферальной системы.</p>
-                <span class="link-hint" style="color: #00ff66;">Запустить бота ➔</span>
+                <h3 style="color: #00ff66;">@Playdonatbot 📱</h3>
+                <p>Новый автономный бот-рандомайзер. Участвуй в честном розыгрыше с увеличенным в 2 раза призовым фондом [1]!</p>
+                <span class="link-hint" style="color: #00ff66;">Запустить рандомайзер ➔</span>
             </a>
-        </div>
 
-        <!-- МЕДИА СЕТЬ БРЕНДА -->
-        <div class="section-title">// МЕДИА СЕТЬ</div>
-        <div class="grid">
-            <a href="https://t.me/kiklaud" class="card tg-card" target="_blank">
+            <div class="section-title">// МЕДИА СЕТЬ ПРОЕКТА</div>
+            <a href="https://t.me" class="card tg-card" target="_blank">
                 <h3 style="color: #00a8ff;">TELEGRAM // OFFICIAL CHANNEL 📢</h3>
-                <p>Официальный канал проекта [0.1.17 ]. Новости, апдейты и технические отчёты.</p>
-                <span class="link-hint" style="color: #00a8ff;">Открыть канал ➔</span>
+                <p>Главный паблик гвардии. Апдейты софта, логи бэкенда и технические отчёты.</p>
+                <span class="link-hint" style="color: #00a8ff;">Вступить в канал ➔</span>
             </a>
-            <a href="https://www.tiktok.com/@kiklaud" class="card tt-card" target="_blank">
+            <a href="https://tiktok.com" class="card tt-card" target="_blank">
                 <h3 style="color: #ff0050;">TIKTOK // НАШ АКТИВ 🎬</h3>
-                <p>Видеоматериалы и демонстрация работы цифровых сервисов.</p>
+                <p>Разговорные манифесты, видеоматериалы и продвижение продуктов.</p>
                 <span class="link-hint" style="color: #ff0050;">Смотреть контент ➔</span>
             </a>
-            <a href="https://www.instagram.com/kiklaud_?stkn=Mnp0cmFvcXBuMXpx&utm_source=qr" class="card inst-card" target="_blank">
+            <a href="https://instagram.com" class="card inst-card" target="_blank">
                 <h3 style="color: #e1306c;">INSTAGRAM // МЕДИА БЛОГ 📸</h3>
-                <p>Официальный фотоблог и лайфстайл проекта.</p>
+                <p>Официальный фотоблог, лайфстайл и кадры из рабочего штаба.</p>
                 <span class="link-hint" style="color: #e1306c;">Открыть профиль ➔</span>
             </a>
-        </div>
 
-        <!-- АВТОНОМНАЯ ИНФРАСТРУКТУРА -->
-        <div class="section-title">// УТИЛИТЫ</div>
-        <div class="grid">
-            <a href="msg.html" class="card messenger-card">
+            <div class="section-title">// УТИЛИТЫ И ОПЛАТА</div>
+            <a href="https://ozon.ru" class="card" target="_blank" style="border-color: #ffcc00;">
+                <h3 style="color: #ffcc00;">ПОДДЕРЖАТЬ ПРОЕКТ // ОЗОН СБП 💸</h3>
+                <p>Моментальный перевод без комиссии на личные девайсы и продление хостингов [1].</p>
+                <span class="link-hint" style="color: #ffcc00;">Перейти к оплате ➔</span>
+            </a>
+            <a href="msg.html" class="card">
                 <h3>ЗАПУСТИТЬ MESSENGER ➔</h3>
-                <p style="color: #a3e6be; margin-top: 5px; font-size: 11px;">Внутренний анонимный чат-рум экосистемы</p>
+                <p>Внутренний анонимный чат-рум экосистемы Kiklaud [1].</p>
             </a>
-            <a href="time.html" class="card planner-card">
+            <a href="time.html" class="card">
                 <h3>РАСПОРЯДОК ДНЯ // TIME ➔</h3>
-                <p style="color: #ebd296; margin-top: 5px; font-size: 11px;">Интерактивный еженедельный планировщик задач</p>
+                <p>Интерактивный еженедельный планировщик задач [1].</p>
             </a>
-        </div>
 
-        <!-- КАТАЛОГ OZON -->
-        <div class="section-title">// КАТАЛОГ ДЕКОРА</div>
-        <div class="grid">
+            <div class="section-title">// КАТАЛОГ ДЕКОРА</div>
             <a href="https://ozon.ru" class="card" target="_blank">
                 <h3>Интерьерный постер «GTA 6» (Формат А3) 🖼️</h3>
                 <div class="price">~ 936 ₽</div>
@@ -132,18 +120,23 @@
     </div>
 
     <script>
-        function processOrder(event) {
-            const game = document.getElementById('game-select').value;
-            const login = document.getElementById('game-login').value.trim();
-            const amount = document.getElementById('game-amount').value.trim();
-
-            if (!login || !amount) {
-                event.preventDefault();
-                alert('Пожалуйста, заполните ваш логин и сумму!');
-                return;
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            
+            // Если секция уже открыта — плавно закрываем её
+            if (section.classList.contains('show')) {
+                section.classList.remove('show');
+                setTimeout(() => { section.style.display = 'none'; }, 400);
+            } else {
+                // Закрываем другие секции, чтобы сайт оставался компактным
+                document.querySelectorAll('.hidden-section').forEach(s => {
+                    s.classList.remove('show');
+                    s.style.display = 'none';
+                });
+                // Открываем текущую секцию
+                section.style.display = 'flex';
+                setTimeout(() => { section.classList.add('show'); }, 10);
             }
-
-            alert('📋 Заказ сформирован!\n\n🕹️ Сервис: ' + game + '\n👤 Аккаунт: ' + login + '\n💳 Сумма: ' + amount + ' ₽\n\nПереход к оплате...');
         }
     </script>
 </body>
